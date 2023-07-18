@@ -7,13 +7,14 @@
  *Description: Reads commands from the user, executes them, and repeats
  *until the user exits.
  */
-void looper(char **env)
+void looper(__attribute__((unused)) char **env)
 {
-	(void)env; /*Indicate that the 'env' parameter is intentionally unused*/
 	char *line;
+	pid_t pid;
 	char *args[MAX_ARGS];
 
-	do {
+	while (1)
+	{
 		printf("$ ");
 		line = readline();
 		parse_args(line, args);
@@ -24,8 +25,7 @@ void looper(char **env)
 				execute_builtin(args);
 			else
 			{
-				pid_t pid = fork();
-
+				pid = fork();
 				if (pid == -1)
 				{
 					perror("fork");
@@ -47,5 +47,5 @@ void looper(char **env)
 
 		}
 		free(line);
-	} while (1);
+	}
 }
