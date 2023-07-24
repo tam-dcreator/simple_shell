@@ -15,6 +15,8 @@ char *readline(void);
 void parse_args(char *line, char **args);
 int is_builtin(char *command);
 void execute_builtin(char **args);
-int _strlen(char *s);
+size_t _strlen(const char *s);
+char *get_env(const char *name);
+int strncmp(const char *s1, const char *s2, size_t n);
 
 #endif /* SHELL_H */
