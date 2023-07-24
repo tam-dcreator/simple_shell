@@ -8,12 +8,12 @@ char *readline(void)
 {
 	int bufsize = BUFFER_SIZE;
 	int ch, index = 0;
-	char *buffer, *error = "Memory Allocation Error\n";
+	char *buffer;
 
 	buffer = malloc(sizeof(char) * bufsize);
-	if (buffer == NULL)
+	if (!buffer)
 	{
-		write(STDERR_FILENO, error, _strlen(error));
+		perror("In Readline, Malloc");
 		exit(EXIT_FAILURE);
 	}
 
@@ -36,9 +36,9 @@ char *readline(void)
 		{
 			bufsize += BUFFER_SIZE;
 			buffer = realloc(buffer, bufsize);
-			if (buffer == NULL)
+			if (!buffer)
 			{
-				write(STDERR_FILENO, error, _strlen(error));
+				perror("In Readline, Realloc");
 				exit(EXIT_FAILURE);
 			}
 		}
