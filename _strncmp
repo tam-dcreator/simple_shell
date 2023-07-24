@@ -1,0 +1,28 @@
+#include "shell.h"
+
+/**
+ * _strncmp - Compare two strings up to a specified maximum length.
+ * @s1: The first string to compare.
+ * @s2: The second string to compare.
+ * @n: The maximum number of characters to compare.
+ *
+ * Return: 0 if the strings are equal up to the specified maximum length,
+ *         a negative value if s1 is less than s2, or
+ *         a positive value if s1 is greater than s2.
+ */
+int _strncmp(const char *s1, const char *s2, size_t n)
+{
+    size_t i;
+
+    for (i = 0; i < n && s1[i] == s2[i] && s1[i] != '\0'; i++)
+    {
+        /* Continue the loop until n characters are compared or a null terminator is reached. */
+    }
+
+    if (i == n)
+        return 0; /* The first n characters are equal. */
+
+    return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+
