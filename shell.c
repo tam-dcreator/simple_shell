@@ -2,17 +2,18 @@
 
 /**
  *looper - Main loop for the shell program.
- *@env: Environment variables.
+ *@envp: Array of environment strings
  *
  *Description: Reads commands from the user, executes them, and repeats
  *until the user exits.
  */
-void looper(__attribute__((unused)) char **env)
+void looper(char **envp)
 {
-	char *line;
+	char *line = NULL;
 	pid_t pid;
 	char *args[MAX_ARGS];
 
+	signal(SIGINT, SIG_IGN);
 	while (1)
 	{
 		printf("$ ");
@@ -28,24 +29,37 @@ void looper(__attribute__((unused)) char **env)
 				pid = fork();
 				if (pid == -1)
 				{
-					perror("fork");
+					perror("In Looper, Fork");
 					exit(EXIT_FAILURE);
 				}
 				else if (pid == 0)
 				{
-					if (execve(args[0], args, env) == -1)
+					if (execve(args[0], args, envp) == -1)
 					{
 						perror(args[0]);
 						exit(EXIT_FAILURE);
 					}
 				}
 				else
-				{
-					wait(NULL);
-				}
+					wait_for_child_process(pid);
 			}
 
 		}
 		free(line);
 	}
+}
+
+/**
+*wait_for_child_process - Function that waits till a child process exited
+*@pid: Process id of child
+*
+*/
+void wait_for_child_process(pid_t pid)
+{
+	int status;
+	pid_t wpid;
+
+	do {
+		wpid = wait(&status);
+	} while (wpid != pid && !WIFEXITED(status) && !WIFSIGNALED(status));
 }

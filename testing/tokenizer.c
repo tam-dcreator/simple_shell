@@ -10,20 +10,19 @@ char **tokenize(char *line)
 {
 	int bufsize = MAX_ARGS;
 	int position = 0;
-	char **tokens = malloc(bufsize * sizeof(char *));
 	char *token;
+	char **tokens = malloc(bufsize * sizeof(char *));
 
 	if (!tokens)
 	{
-		perror("malloc");
+		perror("In Tokenize, Malloc");
 		exit(EXIT_FAILURE);
 	}
 
 	token = strtok(line, " \t\r\n\a");
 	while (token != NULL)
 	{
-		tokens[position] = token;
-		position++;
+		tokens[position++] = token;
 
 	if (position >= bufsize)
 	{
@@ -31,7 +30,7 @@ char **tokenize(char *line)
 		tokens = realloc(tokens, bufsize * sizeof(char *));
 		if (!tokens)
 		{
-			perror("realloc");
+			perror("In Tokenize, Realloc");
 			exit(EXIT_FAILURE);
 		}
 	}
