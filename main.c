@@ -7,11 +7,11 @@
 *
 *Return: Always 0 on success
 */
-int  main(___attribute___((unused)) int ac,
-	  ___attribute___((unused)) char **av, char **envp)
+int  main(__attribute__((unused)) int ac,
+	  __attribute__((unused)) char **av, char *envp[])
 {
 
-	looper();
+	looper(envp);
 
 	return (EXIT_SUCCESS);
 }
