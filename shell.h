@@ -10,6 +10,7 @@
 #define MAX_ARGS 64
 #define BUFFER_SIZE 1
 /*Setting BUFFER_SIZE to 1 since there's a provision to always reallocate mem*/
+extern char **environ;
 
 void looper();
 char *readline(void);
