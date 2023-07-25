@@ -1,90 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "shell.h"
 
 /**
- * get_environ - returns the string array copy of our environ
- * @info: Structure containing potential arguments.
- * Return: A copy of the environment variables or NULL if not found.
+ * get_env - Get the value of an environment variable.
+ * @name: Name of the environment variable.
+ *
+ * Return: The value of the environment variable or NULL if not found.
  */
-char **get_environ(info_t *info)
+char *get_env(const char *name)
 {
-    if (!info->environ || info->env_changed)
-    {
-        info->environ = list_to_strings(info->env);
-        info->env_changed = 0;
-    }
+char **environ_ptr = environ;
+size_t name_len = _strlen(name);
 
-    return (info->environ);
+if (name == NULL || environ_ptr == NULL)
+return (NULL);
+
+while (*environ_ptr)
+{
+if (_strncmp(*environ_ptr, name, name_len) == 0 && (*environ_ptr)[name_len] == '=')
+return (*environ_ptr + name_len + 1);
+nviron_ptr++;
 }
 
-/**
- * _unsetenv - Remove an environment variable
- * @info: Structure containing potential arguments.
- * @var: The string env var property to remove.
- * Return: 1 on delete, 0 otherwise
- */
-int _unsetenv(info_t *info, char *var)
-{
-    list_t *node = info->env;
-    size_t i = 0;
-    char *p;
-
-    if (!node || !var)
-        return (0);
-
-    while (node)
-    {
-        p = starts_with(node->str, var);
-        if (p && *p == '=')
-        {
-            info->env_changed = delete_node_at_index(&(info->env), i);
-            i = 0;
-            node = info->env;
-            continue;
-        }
-        node = node->next;
-        i++;
-    }
-    return (info->env_changed);
+return (NULL);
 }
 
-/**
- * _setenv - Initialize a new environment variable,
- *             or modify an existing one
- * @info: Structure containing potential arguments.
- * @var: The string env var property to set or modify.
- * @value: The string env var value.
- * Return: Always 0
- */
-int _setenv(info_t *info, char *var, char *value)
-{
-    char *buf = NULL;
-    list_t *node;
-    char *p;
-
-    if (!var || !value)
-        return (0);
-
-    buf = malloc(_strlen(var) + _strlen(value) + 2);
-    if (!buf)
-        return (1);
-    _strcpy(buf, var);
-    _strcat(buf, "=");
-    _strcat(buf, value);
-    node = info->env;
-    while (node)
-    {
-        p = starts_with(node->str, var);
-        if (p && *p == '=')
-        {
-            free(node->str);
-            node->str = buf;
-            info->env_changed = 1;
-            return (0);
-        }
-        node = node->next;
-    }
-    add_node_end(&(info->env), buf);
-    free(buf);
-    info->env_changed = 1;
-    return (0);
-}
