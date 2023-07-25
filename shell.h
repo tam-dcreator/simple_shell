@@ -11,12 +11,12 @@
 #define BUFFER_SIZE 1
 /*Setting BUFFER_SIZE to 1 since there's a provision to always reallocate mem*/
 
-void looper(char **env);
+void looper();
 char *readline(void);
 void parse_args(char *line, char **args);
 int is_builtin(char *command);
 void execute_builtin(char **args);
-int _strlen(char *s);
+int _strlen(const char *s);
 char **tokenize(char *line);
 
 #endif /* SHELL_H */
