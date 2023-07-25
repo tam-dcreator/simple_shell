@@ -8,7 +8,7 @@ char *readline(void)
 {
 	int bufsize = BUFFER_SIZE;
 	int ch, index = 0;
-	static char *buffer;
+	char *buffer;
 
 	buffer = malloc(sizeof(char) * bufsize);
 	if (!buffer)
