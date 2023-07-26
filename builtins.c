@@ -17,8 +17,12 @@ int is_builtin(char *command)
 /**
  *execute_builtin - Execute a built-in command.
  *@args: Command arguments.
+ *@line: Buffer where command from stdin where read into
+ *
+ *Description: Not really a description, just noting that i sent the line var
+ *into this function just so i can free it if user types exit.
  */
-void execute_builtin(char **args)
+void execute_builtin(char **args, char *line)
 {
 	if (strcmp(args[0], "cd") == 0)
 	{
@@ -28,5 +32,5 @@ void execute_builtin(char **args)
 			perror(args[0]);
 	}
 	else if (strcmp(args[0], "exit") == 0)
-		exit(EXIT_SUCCESS);
+		free(args), free(line), exit(EXIT_SUCCESS);
 }
