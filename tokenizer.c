@@ -23,19 +23,18 @@ char **tokenize(char *line)
 	while (token != NULL)
 	{
 		tokens[position++] = token;
+		token = strtok(NULL, " \t\r\n\a");
 
-	if (position >= bufsize)
-	{
-		bufsize += MAX_ARGS;
-		tokens = realloc(tokens, bufsize * sizeof(char *));
-		if (!tokens)
+		if (position >= bufsize)
 		{
-			perror("In Tokenize, Realloc");
-			exit(EXIT_FAILURE);
+			bufsize += MAX_ARGS;
+			tokens = realloc(tokens, bufsize * sizeof(char *));
+			if (!tokens)
+			{
+				perror("In Tokenize, Realloc");
+				exit(EXIT_FAILURE);
+			}
 		}
-	}
-
-	token = strtok(NULL, " \t\r\n\a");
 	}
 	tokens[position] = NULL;
 	return (tokens);

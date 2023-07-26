@@ -1,43 +1,46 @@
 #include "shell.h"
-
 /**
- *looper - Main loop for the shell program.
+ *main - Entry Function.
+ *@ac: Argument count
+ *@args: Argument vector
  *@envp: Array of environment strings
  *
- *Description: Reads commands from the user, executes them, and repeats
- *until the user exits.
+ *Return: Always 0 on success
  */
-void looper(char **envp)
+int  main(__attribute__((unused)) int ac, char **args, char **envp)
 {
 	char *line = NULL;
 	pid_t pid;
-	char *args[MAX_ARGS];
 
 	signal(SIGINT, SIG_IGN);
 	while (1)
 	{
-		printf("$ ");
+		if (isatty(STDIN_FILENO))
+			write(1, "$ ", 2);
 		line = readline();
-		parse_args(line, args);
+		args = tokenize(line);
 
 		if (args[0] != NULL)
 		{
+			printf("%c\n",args[0][0]);
 			if (is_builtin(args[0]))
-				execute_builtin(args);
+				execute_builtin(args, line);
 			else
 			{
 				pid = fork();
 				if (pid == -1)
 				{
 					perror("In Looper, Fork");
-					exit(EXIT_FAILURE);
+					close_prog(args, line);
 				}
 				else if (pid == 0)
 				{
+					if (args[0][0] == '/')
+						args[0] = full_path(args[0]);
 					if (execve(args[0], args, envp) == -1)
 					{
 						perror(args[0]);
-						exit(EXIT_FAILURE);
+						close_prog(args, line);
 					}
 				}
 				else
@@ -45,8 +48,10 @@ void looper(char **envp)
 			}
 
 		}
+		free(args);
 		free(line);
 	}
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -62,4 +67,17 @@ void wait_for_child_process(pid_t pid)
 	do {
 		wpid = wait(&status);
 	} while (wpid != pid && !WIFEXITED(status) && !WIFSIGNALED(status));
+}
+
+/**
+*close_prog - Function that frees memory and exits the program on error
+*@args: Buffer containing the tokenized input
+*@line: Buffer containing the command read from stdin
+*
+*/
+void close_prog(char **args, char *line)
+{
+	free(args);
+	free(line);
+	exit(EXIT_FAILURE);
 }
