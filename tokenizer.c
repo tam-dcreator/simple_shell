@@ -16,6 +16,7 @@ char **tokenize(char *line)
 	if (!tokens)
 	{
 		perror("In Tokenize, Malloc");
+		free(lines);
 		exit(EXIT_FAILURE);
 	}
 
@@ -32,6 +33,8 @@ char **tokenize(char *line)
 			if (!tokens)
 			{
 				perror("In Tokenize, Realloc");
+				free(tokens); 
+				free(lines); 
 				exit(EXIT_FAILURE);
 			}
 		}

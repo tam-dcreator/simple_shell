@@ -32,5 +32,15 @@ void execute_builtin(char **args, char *line)
 			perror(args[0]);
 	}
 	else if (strcmp(args[0], "exit") == 0)
-		free(args), free(line), exit(EXIT_SUCCESS);
+	{
+		if (args[1] != NULL)
+		{
+			int status = atoi(args[1]);
+			exit(status);
+		}
+		else
+		{
+			exit(EXIT_FAILURE);
+		}
+	}
 }

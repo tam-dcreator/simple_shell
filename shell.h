@@ -9,7 +9,7 @@
 
 #define MAX_ARGS 64
 #define BUFFER_SIZE 1024
-/*Setting BUFFER_SIZE to 1 since there's a provision to always reallocate mem*/
+
 extern char **environ;
 
 /*void looper(char **envp);*/
@@ -21,5 +21,6 @@ int _strlen(const char *s);
 char **tokenize(char *line);
 void wait_for_child_process(pid_t pid);
 void close_prog(char **args, char *line);
+int atoi(const char *str);
 
 #endif /* SHELL_H */
