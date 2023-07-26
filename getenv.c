@@ -8,18 +8,18 @@
  */
 char *get_env(const char *name)
 {
-	extern char **environ;
+	size_t i;
 	size_t name_len = _strlen(name);
 
 	if (name == NULL || environ == NULL)
 	return (NULL);
 
-	for (size_t i = 0; environ[i] != NULL; i++)
+	for (i = 0; environ[i] != NULL; i++)
 	{
-		if (_strncmp(environ[i], name, name_len) == 0 && environ[i][name_len] == '=')
+		if (strncmp(environ[i], name, name_len) == 0
+		    && environ[i][name_len] == '=')
 		return (environ[i] + name_len + 1);
 	}
 
 	return (NULL);
 }
-
