@@ -1,5 +1,4 @@
 #include "shell.h"
-#include <readline/readline.h>
 /**
 *readline - Function to read the characters inputs from the command line.
 *

@@ -21,6 +21,6 @@ int _strlen(const char *s);
 char **tokenize(char *line);
 void wait_for_child_process(pid_t pid);
 void close_prog(char **args, char *line);
-int atoi(const char *str);
+int _atoi(const char *str);
 
 #endif /* SHELL_H */

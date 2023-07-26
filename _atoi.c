@@ -6,7 +6,7 @@
  *
  * Return: The integer value.
  */
-int _atoi(char *str)
+int _atoi(const char *str)
 {
 	int result = 0;
 	int sign = 1;
@@ -21,11 +21,10 @@ int _atoi(char *str)
 	for (; str[i] != '\0'; i++)
 	{
 		if (str[i] < '0' || str[i] > '9')
-		break;
+			return ('\0');
 
 		result = result * 10 + (str[i] - '0');
 	}
 
 	return (sign * result);
 }
-

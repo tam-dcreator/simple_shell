@@ -24,6 +24,8 @@ int is_builtin(char *command)
  */
 void execute_builtin(char **args, char *line)
 {
+	int status;
+
 	if (strcmp(args[0], "cd") == 0)
 	{
 		if (args[1] == NULL)
@@ -35,12 +37,11 @@ void execute_builtin(char **args, char *line)
 	{
 		if (args[1] != NULL)
 		{
-			int status = atoi(args[1]);
-			exit(status);
+			status = _atoi(args[1]);
+			if (status == '\0')
+				close_prog(args, line);
+			free(args), free(line), exit(status);
 		}
-		else
-		{
-			exit(EXIT_FAILURE);
-		}
+		free(args), free(line), exit(EXIT_SUCCESS);
 	}
 }

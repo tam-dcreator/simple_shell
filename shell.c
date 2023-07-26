@@ -19,10 +19,9 @@ int  main(__attribute__((unused)) int ac, char **args, char **envp)
 			write(1, "$ ", 2);
 		line = readline();
 		args = tokenize(line);
-
 		if (args[0] != NULL)
 		{
-			printf("%c\n",args[0][0]);
+			printf("%c\n", args[0][0]);
 			if (is_builtin(args[0]))
 				execute_builtin(args, line);
 			else
@@ -48,8 +47,7 @@ int  main(__attribute__((unused)) int ac, char **args, char **envp)
 			}
 
 		}
-		free(args);
-		free(line);
+		free(args), free(line);
 	}
 	return (EXIT_SUCCESS);
 }
