@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
 #define MAX_ARGS 64
 #define BUFFER_SIZE 1024
@@ -22,5 +23,10 @@ char **tokenize(char *line);
 void wait_for_child_process(pid_t pid);
 void close_prog(char **args, char *line);
 int _atoi(const char *str);
+int _strcheck(const char *s, char c);
+char *full_path(char *command);
+char *get_env(const char *name);
+char *_strncat(char *dest, char *src, int n);
+char *_strcat(char *dest, char *src);
 
 #endif /* SHELL_H */

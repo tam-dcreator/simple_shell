@@ -21,7 +21,6 @@ int  main(__attribute__((unused)) int ac, char **args, char **envp)
 		args = tokenize(line);
 		if (args[0] != NULL)
 		{
-			printf("%c\n", args[0][0]);
 			if (is_builtin(args[0]))
 				execute_builtin(args, line);
 			else
@@ -34,7 +33,7 @@ int  main(__attribute__((unused)) int ac, char **args, char **envp)
 				}
 				else if (pid == 0)
 				{
-					if (args[0][0] == '/')
+					if (_strcheck(args[0], '/'))
 						args[0] = full_path(args[0]);
 					if (execve(args[0], args, envp) == -1)
 					{

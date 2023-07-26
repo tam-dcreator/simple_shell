@@ -25,7 +25,7 @@ char *full_path(char *command)
 	temp[i] = NULL;
 
 	i = 0;
-	while (dirs[i] != NULL)
+	while (temp[i] != NULL)
 	{
 		chdir(temp[i]);
 		if (stat(command, &sb) == 0)
