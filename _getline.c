@@ -7,40 +7,42 @@
 char *readline(void)
 {
 	int bufsize = BUFFER_SIZE;
-	int ch, index = 0;
-	char *buffer;
+	int index = 0;
+	size_t count;
+	char *temp, *buffer = malloc(sizeof(char) * bufsize);
 
-	buffer = malloc(sizeof(char) * bufsize);
 	if (!buffer)
 	{
 		perror("In Readline, Malloc");
 		exit(EXIT_FAILURE);
 	}
-
 	while (1)
 	{
-		ch = getc(stdin);
+		count = read(STDIN_FILENO, buffer + index, bufsize - index);
+		if (count <= 0)
+			break;
 
-		if (ch == EOF || ch == '\n')
-		{
-			buffer[index] = '\0';
-			return (buffer);
-		}
-		else
-		{
-			buffer[index++] = ch;
-		}
+		index += count;
+		if (buffer[index - 1] == '\n')
+			break;
 
-		/* If we have exceeded the buffer size, reallocate memory.*/
-		if (index >= bufsize)
+		if (index >= bufsize - 1)
 		{
 			bufsize += BUFFER_SIZE;
-			buffer = realloc(buffer, bufsize);
-			if (!buffer)
+			temp = realloc(buffer, bufsize);
+			if (!temp)
 			{
 				perror("In Readline, Realloc");
-				exit(EXIT_FAILURE);
+				free(buffer), exit(EXIT_FAILURE);
 			}
+			buffer = temp;
 		}
 	}
+	if (index == 0)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	buffer[index] = '\0';
+	return (buffer);
 }
