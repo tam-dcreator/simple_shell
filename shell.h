@@ -28,5 +28,8 @@ char *full_path(char *command);
 char *get_env(const char *name);
 char *_strncat(char *dest, char *src, int n);
 char *_strcat(char *dest, char *src);
+int _strncmp(const char *s1, const char *s2, int  n);
+int _strcmp(const char *str1, const char *str2);
+void print_error(const char *prog_name, const char *error_msg);
 
 #endif /* SHELL_H */
