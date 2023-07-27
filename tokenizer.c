@@ -10,9 +10,12 @@ char **tokenize(char *line)
 {
 	int bufsize = MAX_ARGS;
 	int position = 0;
-	char *token;
-	char **tokens = malloc(bufsize * sizeof(char *));
+	char *token, **tokens;
 
+	if (line == NULL)
+		exit(EXIT_FAILURE);
+
+	tokens = malloc(bufsize * sizeof(char *));
 	if (!tokens)
 	{
 		perror("In Tokenize, Malloc");
