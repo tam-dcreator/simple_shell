@@ -35,7 +35,7 @@ int  main(__attribute__((unused)) int ac, char **args, char **envp)
 				{
 					if (_strcheck(args[0], '/'))
 						args[0] = full_path(args[0]);
-					if (execve(args[0], args, envp) == -1)
+					if (execve(args[0], args, envp))
 					{
 						perror(args[0]);
 						close_prog(args, line);
