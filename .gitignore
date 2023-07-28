@@ -2,3 +2,7 @@ TEST_SUITE
 allowed_functions
 runchecker.bash
 hsh
+gitignore
+.gitignore
+*.c~
+*~
