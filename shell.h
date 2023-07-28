@@ -31,5 +31,6 @@ char *_strcat(char *dest, char *src);
 int _strncmp(const char *s1, const char *s2, int  n);
 int _strcmp(const char *str1, const char *str2);
 void print_error(const char *prog_name, const char *error_msg);
+void print_environ(void);
 
 #endif /* SHELL_H */

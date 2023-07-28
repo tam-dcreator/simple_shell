@@ -8,7 +8,8 @@
  */
 int is_builtin(char *command)
 {
-	if (_strcmp(command, "cd") == 0 || _strcmp(command, "exit") == 0)
+	if (_strcmp(command, "cd") == 0 || _strcmp(command, "exit") == 0 ||
+		_strcmp(command, "env") == 0)
 		return (1);
 
 	return (0);
@@ -43,5 +44,9 @@ void execute_builtin(char **args, char *line)
 			free(args), free(line), exit(status);
 		}
 		free(args), free(line), exit(EXIT_SUCCESS);
+	}
+	else if (_strcmp(args[0], "env") == 0)
+	{
+		print_environ();
 	}
 }
