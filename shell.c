@@ -11,13 +11,15 @@ int  main(__attribute__((unused)) int ac, char **args, char **envp)
 {
 	char *line = NULL;
 	pid_t pid;
+	size_t buf_size = 0;
 
 	signal(SIGINT, SIG_IGN);
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
 			write(1, "$ ", 2);
-		line = readline();
+		if (getline(&line, &buf_size, stdin) == -1)
+			break;
 		args = tokenize(line);
 		if (args[0] != NULL)
 		{
