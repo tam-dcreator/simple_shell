@@ -2,11 +2,11 @@
 
 /**
  *print_error - Print an error message to stderr.
- *@prog_name: The name of the program (argv[0]).
- *@error_msg: The error message to print.
+ *@prog_name: The name of the program (args[0]).
+ *
  */
-void print_error(const char *prog_name, const char *error_msg)
+void print_error(const char *prog_name)
 {
-	write(2, prog_name, _strlen(prog_name));
-	write(2, error_msg, _strlen(error_msg));
+	fprintf(stderr, "./hsh: %d: %s: %s\n", errno, prog_name,
+		strerror(errno));
 }

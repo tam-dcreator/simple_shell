@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 #define MAX_ARGS 64
 #define BUFFER_SIZE 1024
@@ -30,7 +31,7 @@ char *_strncat(char *dest, char *src, int n);
 char *_strcat(char *dest, char *src);
 int _strncmp(const char *s1, const char *s2, int  n);
 int _strcmp(const char *str1, const char *str2);
-void print_error(const char *prog_name, const char *error_msg);
+void print_error(const char *prog_name);
 void print_environ(void);
 
 #endif /* SHELL_H */

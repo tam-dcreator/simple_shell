@@ -30,7 +30,7 @@ void execute_builtin(char **args, char *line)
 	if (_strcmp(args[0], "cd") == 0)
 	{
 		if (args[1] == NULL)
-			print_error(args[0], ": missing argument\n");
+			print_error(args[0]);
 		else if (chdir(args[1]) != 0)
 			perror(args[0]);
 	}
