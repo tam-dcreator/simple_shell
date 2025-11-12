@@ -2,9 +2,9 @@ This is a collaboration project. We created a simple shell that mimics the Bash 
 Our shell shall be called `hsh`
 
 The project was completed using
-C language
-Shell
-Betty linter
+C language,
+Shell,
+Betty linter.
 
 General Requirement for project
 All files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
