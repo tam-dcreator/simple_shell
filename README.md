@@ -1,10 +1,11 @@
-ALX Simple Shell Team Project
-This is an ALX collaboration project on Shell. We were tasked to create a simple shell that mimics the Bash shell. Our shell shall be called hsh
+This is a collaboration project. We created a simple shell that mimics the Bash shell using the C programming language.
+Our shell shall be called `hsh`
 
-Project was completed using
+The project was completed using
 C language
 Shell
 Betty linter
+
 General Requirement for project
 All files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
 All files should end with a new line
